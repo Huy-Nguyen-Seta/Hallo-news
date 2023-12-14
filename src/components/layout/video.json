@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_layout_videos",
+  "info": {
+    "displayName": "video",
+    "icon": "slideshow"
+  },
+  "options": {},
+  "attributes": {
+    "video": {
+      "type": "customField",
+      "customField": "plugin::oembed.oembed"
+    }
+  }
+}

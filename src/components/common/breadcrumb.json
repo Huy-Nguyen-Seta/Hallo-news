@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_common_breadcrumbs",
+  "info": {
+    "displayName": "Breadcrumb"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "unique": false,
+      "required": true
+    },
+    "link": {
+      "type": "text",
+      "required": false
+    }
+  }
+}
