@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_layout_homepage_service_offerings",
+  "info": {
+    "displayName": "Homepage.serviceOfferings"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "items": {
+      "displayName": "Homepage.serviceOfferings.items",
+      "type": "component",
+      "repeatable": true,
+      "component": "common.homepage-service-offerings-items"
+    }
+  }
+}

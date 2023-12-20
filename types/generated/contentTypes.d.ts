@@ -907,6 +907,92 @@ export interface ApiFooterFooter extends Schema.SingleType {
   };
 }
 
+export interface ApiHomepageHomepage extends Schema.SingleType {
+  collectionName: 'homepages';
+  info: {
+    singularName: 'homepage';
+    pluralName: 'homepages';
+    displayName: 'Homepage';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    banner: Attribute.Component<'layout.homepage-banner', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    services: Attribute.Component<'layout.homepage-services'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    ourClients: Attribute.Component<'layout.homepage-our-clients'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slidesCaseStudies: Attribute.Component<
+      'layout.homepage-slides-case-studies',
+      true
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    introduce: Attribute.Component<'layout.homepage-introduce'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    serviceOfferings: Attribute.Component<'layout.homepage-service-offerings'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Seo: Attribute.Component<'common.meta-data'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::homepage.homepage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::homepage.homepage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::homepage.homepage',
+      'oneToMany',
+      'api::homepage.homepage'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiNavBarNavBar extends Schema.CollectionType {
   collectionName: 'nav_bars';
   info: {
@@ -1034,6 +1120,7 @@ declare module '@strapi/types' {
       'api::blog.blog': ApiBlogBlog;
       'api::comment.comment': ApiCommentComment;
       'api::footer.footer': ApiFooterFooter;
+      'api::homepage.homepage': ApiHomepageHomepage;
       'api::nav-bar.nav-bar': ApiNavBarNavBar;
       'api::tag.tag': ApiTagTag;
     }

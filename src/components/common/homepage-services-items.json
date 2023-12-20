@@ -1,0 +1,53 @@
+{
+  "collectionName": "components_common_homepage_services_items",
+  "info": {
+    "displayName": "Homepage.services.items",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "imageCustomer": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "logoCompany": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "postionCustomer": {
+      "type": "string"
+    },
+    "thumbnailImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "video": {
+      "type": "customField",
+      "customField": "plugin::oembed.oembed"
+    },
+    "description": {
+      "type": "text"
+    },
+    "textLink": {
+      "type": "string"
+    },
+    "link": {
+      "type": "text"
+    }
+  }
+}

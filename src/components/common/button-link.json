@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_common_button_links",
+  "info": {
+    "displayName": "ButtonLink"
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string",
+      "unique": false,
+      "required": true
+    },
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "newTab": {
+      "type": "boolean"
+    }
+  }
+}
