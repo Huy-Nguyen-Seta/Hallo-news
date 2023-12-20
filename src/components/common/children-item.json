@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_common_children_items",
+  "info": {
+    "displayName": "ChildrenItem"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "text"
+    },
+    "isNewTab": {
+      "type": "boolean"
+    }
+  }
+}
