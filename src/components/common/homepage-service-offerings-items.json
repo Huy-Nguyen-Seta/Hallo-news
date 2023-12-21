@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_common_homepage_service_offerings_items",
+  "info": {
+    "displayName": "Homepage.serviceOfferings.items"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "title": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}

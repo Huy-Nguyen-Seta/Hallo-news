@@ -11,6 +11,18 @@ export interface CommonBreadcrumb extends Schema.Component {
   };
 }
 
+export interface CommonButtonLink extends Schema.Component {
+  collectionName: 'components_common_button_links';
+  info: {
+    displayName: 'ButtonLink';
+  };
+  attributes: {
+    url: Attribute.String & Attribute.Required;
+    text: Attribute.String & Attribute.Required;
+    newTab: Attribute.Boolean;
+  };
+}
+
 export interface CommonChildCategory extends Schema.Component {
   collectionName: 'components_common_child_categories';
   info: {
@@ -46,6 +58,58 @@ export interface CommonFooterItem extends Schema.Component {
   };
 }
 
+export interface CommonHomepageIntroduceItems extends Schema.Component {
+  collectionName: 'components_common_homepage_introduce_items';
+  info: {
+    displayName: 'Homepage.introduce.items';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.String;
+    link: Attribute.String;
+  };
+}
+
+export interface CommonHomepageOurClientsItems extends Schema.Component {
+  collectionName: 'components_common_homepage_our_clients_items';
+  info: {
+    displayName: 'Homepage.ourClients.items';
+  };
+  attributes: {
+    image: Attribute.Media;
+  };
+}
+
+export interface CommonHomepageServiceOfferingsItems extends Schema.Component {
+  collectionName: 'components_common_homepage_service_offerings_items';
+  info: {
+    displayName: 'Homepage.serviceOfferings.items';
+  };
+  attributes: {
+    image: Attribute.Media;
+    title: Attribute.String;
+    link: Attribute.String;
+  };
+}
+
+export interface CommonHomepageServicesItems extends Schema.Component {
+  collectionName: 'components_common_homepage_services_items';
+  info: {
+    displayName: 'Homepage.services.items';
+    description: '';
+  };
+  attributes: {
+    imageCustomer: Attribute.Media;
+    logoCompany: Attribute.Media;
+    postionCustomer: Attribute.String;
+    thumbnailImage: Attribute.Media;
+    video: Attribute.Text & Attribute.CustomField<'plugin::oembed.oembed'>;
+    description: Attribute.Text;
+    textLink: Attribute.String;
+    link: Attribute.Text;
+  };
+}
+
 export interface CommonMetaData extends Schema.Component {
   collectionName: 'components_common_meta_data';
   info: {
@@ -71,6 +135,81 @@ export interface CommonNavbarItem extends Schema.Component {
   };
 }
 
+export interface LayoutHomepageBanner extends Schema.Component {
+  collectionName: 'components_layout_homepage_banners';
+  info: {
+    displayName: 'Homepage.banner';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    button: Attribute.Component<'common.button-link'>;
+    thumbnailImage: Attribute.Media;
+    backgroundImageDecktop: Attribute.Media;
+    backgroundImageMobile: Attribute.Media;
+    thumbnailVideo: Attribute.Text &
+      Attribute.CustomField<'plugin::oembed.oembed'>;
+  };
+}
+
+export interface LayoutHomepageIntroduce extends Schema.Component {
+  collectionName: 'components_layout_homepage_introduces';
+  info: {
+    displayName: 'Homepage.introduce';
+  };
+  attributes: {
+    title: Attribute.String;
+    items: Attribute.Component<'common.homepage-introduce-items', true>;
+  };
+}
+
+export interface LayoutHomepageOurClients extends Schema.Component {
+  collectionName: 'components_layout_homepage_our_clients';
+  info: {
+    displayName: 'Homepage.ourClients';
+  };
+  attributes: {
+    title: Attribute.String;
+    items: Attribute.Component<'common.homepage-our-clients-items', true>;
+  };
+}
+
+export interface LayoutHomepageServiceOfferings extends Schema.Component {
+  collectionName: 'components_layout_homepage_service_offerings';
+  info: {
+    displayName: 'Homepage.serviceOfferings';
+  };
+  attributes: {
+    title: Attribute.String;
+    items: Attribute.Component<'common.homepage-service-offerings-items', true>;
+  };
+}
+
+export interface LayoutHomepageServices extends Schema.Component {
+  collectionName: 'components_layout_homepage_services';
+  info: {
+    displayName: 'Homepage.services';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.String;
+    items: Attribute.Component<'common.homepage-services-items', true>;
+  };
+}
+
+export interface LayoutHomepageSlidesCaseStudies extends Schema.Component {
+  collectionName: 'components_layout_homepage_slides_case_studies';
+  info: {
+    displayName: 'Homepage.slidesCaseStudies';
+  };
+  attributes: {
+    image: Attribute.Media;
+    title: Attribute.String;
+    description: Attribute.String;
+  };
+}
+
 export interface LayoutVideo extends Schema.Component {
   collectionName: 'components_layout_videos';
   info: {
@@ -86,11 +225,22 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'common.breadcrumb': CommonBreadcrumb;
+      'common.button-link': CommonButtonLink;
       'common.child-category': CommonChildCategory;
       'common.children-item': CommonChildrenItem;
       'common.footer-item': CommonFooterItem;
+      'common.homepage-introduce-items': CommonHomepageIntroduceItems;
+      'common.homepage-our-clients-items': CommonHomepageOurClientsItems;
+      'common.homepage-service-offerings-items': CommonHomepageServiceOfferingsItems;
+      'common.homepage-services-items': CommonHomepageServicesItems;
       'common.meta-data': CommonMetaData;
       'common.navbar-item': CommonNavbarItem;
+      'layout.homepage-banner': LayoutHomepageBanner;
+      'layout.homepage-introduce': LayoutHomepageIntroduce;
+      'layout.homepage-our-clients': LayoutHomepageOurClients;
+      'layout.homepage-service-offerings': LayoutHomepageServiceOfferings;
+      'layout.homepage-services': LayoutHomepageServices;
+      'layout.homepage-slides-case-studies': LayoutHomepageSlidesCaseStudies;
       'layout.video': LayoutVideo;
     }
   }
