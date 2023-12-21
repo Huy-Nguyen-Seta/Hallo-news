@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_layout_service_hero_sections",
+  "info": {
+    "displayName": "Service.HeroSection",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.button-link"
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}
