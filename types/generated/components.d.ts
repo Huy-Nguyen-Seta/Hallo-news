@@ -135,6 +135,31 @@ export interface CommonNavbarItem extends Schema.Component {
   };
 }
 
+export interface CommonServicesOfferItems extends Schema.Component {
+  collectionName: 'components_common_services_offer_items';
+  info: {
+    displayName: 'Services.Offer.items';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    image: Attribute.Media;
+  };
+}
+
+export interface CommonServicesProcessItems extends Schema.Component {
+  collectionName: 'components_common_services_process_items';
+  info: {
+    displayName: 'Services.Process.items';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.String;
+  };
+}
+
 export interface LayoutHomepageBanner extends Schema.Component {
   collectionName: 'components_layout_homepage_banners';
   info: {
@@ -210,6 +235,62 @@ export interface LayoutHomepageSlidesCaseStudies extends Schema.Component {
   };
 }
 
+export interface LayoutServiceHeroSection extends Schema.Component {
+  collectionName: 'components_layout_service_hero_sections';
+  info: {
+    displayName: 'Service.HeroSection';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    image: Attribute.Media;
+    button: Attribute.Component<'common.button-link'>;
+    backgroundImage: Attribute.Media;
+  };
+}
+
+export interface LayoutServicesCaseStudy extends Schema.Component {
+  collectionName: 'components_layout_services_case_studies';
+  info: {
+    displayName: 'Services.CaseStudy';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    case_studies: Attribute.Relation<
+      'layout.services-case-study',
+      'oneToMany',
+      'api::case-study.case-study'
+    >;
+  };
+}
+
+export interface LayoutServicesProcess extends Schema.Component {
+  collectionName: 'components_layout_services_processes';
+  info: {
+    displayName: 'Services.Process';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    items: Attribute.Component<'common.services-process-items', true>;
+  };
+}
+
+export interface LayoutServicesWeOffer extends Schema.Component {
+  collectionName: 'components_layout_services_we_offers';
+  info: {
+    displayName: 'Services.WeOffer';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    items: Attribute.Component<'common.services-offer-items', true>;
+  };
+}
+
 export interface LayoutVideo extends Schema.Component {
   collectionName: 'components_layout_videos';
   info: {
@@ -235,12 +316,18 @@ declare module '@strapi/types' {
       'common.homepage-services-items': CommonHomepageServicesItems;
       'common.meta-data': CommonMetaData;
       'common.navbar-item': CommonNavbarItem;
+      'common.services-offer-items': CommonServicesOfferItems;
+      'common.services-process-items': CommonServicesProcessItems;
       'layout.homepage-banner': LayoutHomepageBanner;
       'layout.homepage-introduce': LayoutHomepageIntroduce;
       'layout.homepage-our-clients': LayoutHomepageOurClients;
       'layout.homepage-service-offerings': LayoutHomepageServiceOfferings;
       'layout.homepage-services': LayoutHomepageServices;
       'layout.homepage-slides-case-studies': LayoutHomepageSlidesCaseStudies;
+      'layout.service-hero-section': LayoutServiceHeroSection;
+      'layout.services-case-study': LayoutServicesCaseStudy;
+      'layout.services-process': LayoutServicesProcess;
+      'layout.services-we-offer': LayoutServicesWeOffer;
       'layout.video': LayoutVideo;
     }
   }

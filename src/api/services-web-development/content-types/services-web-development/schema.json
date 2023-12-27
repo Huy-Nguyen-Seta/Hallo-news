@@ -1,0 +1,86 @@
+{
+  "kind": "collectionType",
+  "collectionName": "services_web_developments",
+  "info": {
+    "singularName": "services-web-development",
+    "pluralName": "services-web-developments",
+    "displayName": "Services/Development",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "heroSection": {
+      "displayName": "Service.HeroSection",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "layout.service-hero-section"
+    },
+    "breadcrumb": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "common.breadcrumb"
+    },
+    "process": {
+      "displayName": "Services.Process",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "layout.services-process"
+    },
+    "caseStudies": {
+      "displayName": "Services.CaseStudy",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "layout.services-case-study"
+    },
+    "metaData": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "common.meta-data"
+    },
+    "type": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "web",
+        "mobile"
+      ],
+      "required": true
+    }
+  }
+}

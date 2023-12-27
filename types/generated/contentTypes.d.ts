@@ -788,6 +788,73 @@ export interface ApiBlogBlog extends Schema.CollectionType {
   };
 }
 
+export interface ApiCaseStudyCaseStudy extends Schema.CollectionType {
+  collectionName: 'case_studies';
+  info: {
+    singularName: 'case-study';
+    pluralName: 'case-studies';
+    displayName: 'CaseStudy';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::case-study.case-study',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::case-study.case-study',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::case-study.case-study',
+      'oneToMany',
+      'api::case-study.case-study'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiCommentComment extends Schema.CollectionType {
   collectionName: 'comments';
   info: {
@@ -1060,6 +1127,171 @@ export interface ApiNavBarNavBar extends Schema.CollectionType {
   };
 }
 
+export interface ApiServicesOurSourcingServicesOurSourcing
+  extends Schema.CollectionType {
+  collectionName: 'services_our_sourcings';
+  info: {
+    singularName: 'services-our-sourcing';
+    pluralName: 'services-our-sourcings';
+    displayName: 'Services/OurSourcing';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    heroSection: Attribute.Component<'layout.service-hero-section'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    breadcrumb: Attribute.Component<'common.breadcrumb', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    weOffer: Attribute.Component<'layout.services-we-offer'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    weWork: Attribute.Component<'layout.services-we-offer'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    caseStudies: Attribute.Component<'layout.services-case-study'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    metaData: Attribute.Component<'common.meta-data'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    type: Attribute.Enumeration<
+      ['Legacy', 'Testing', 'Embedded', 'Salesforce']
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::services-our-sourcing.services-our-sourcing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::services-our-sourcing.services-our-sourcing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::services-our-sourcing.services-our-sourcing',
+      'oneToMany',
+      'api::services-our-sourcing.services-our-sourcing'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiServicesWebDevelopmentServicesWebDevelopment
+  extends Schema.CollectionType {
+  collectionName: 'services_web_developments';
+  info: {
+    singularName: 'services-web-development';
+    pluralName: 'services-web-developments';
+    displayName: 'Services/Development';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    heroSection: Attribute.Component<'layout.service-hero-section'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    breadcrumb: Attribute.Component<'common.breadcrumb', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    process: Attribute.Component<'layout.services-process'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    caseStudies: Attribute.Component<'layout.services-case-study'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    metaData: Attribute.Component<'common.meta-data'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    type: Attribute.Enumeration<['web', 'mobile']> &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::services-web-development.services-web-development',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::services-web-development.services-web-development',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::services-web-development.services-web-development',
+      'oneToMany',
+      'api::services-web-development.services-web-development'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiTagTag extends Schema.CollectionType {
   collectionName: 'tags';
   info: {
@@ -1118,10 +1350,13 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::author.author': ApiAuthorAuthor;
       'api::blog.blog': ApiBlogBlog;
+      'api::case-study.case-study': ApiCaseStudyCaseStudy;
       'api::comment.comment': ApiCommentComment;
       'api::footer.footer': ApiFooterFooter;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::nav-bar.nav-bar': ApiNavBarNavBar;
+      'api::services-our-sourcing.services-our-sourcing': ApiServicesOurSourcingServicesOurSourcing;
+      'api::services-web-development.services-web-development': ApiServicesWebDevelopmentServicesWebDevelopment;
       'api::tag.tag': ApiTagTag;
     }
   }
