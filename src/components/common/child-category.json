@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_common_child_categories",
+  "info": {
+    "displayName": "NavbarSubCate",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "children": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.navbar-item"
+    }
+  }
+}
