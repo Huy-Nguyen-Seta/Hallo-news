@@ -10,11 +10,20 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
   "attributes": {
     "title": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "author": {
       "type": "relation",
@@ -22,23 +31,15 @@
       "target": "api::author.author",
       "inversedBy": "blogs"
     },
-    "tags": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::tag.tag",
-      "inversedBy": "blogs"
-    },
     "slug": {
       "type": "string",
       "required": true,
-      "unique": true
-    },
-    "content": {
-      "type": "customField",
-      "options": {
-        "preset": "toolbar"
-      },
-      "customField": "plugin::ckeditor5.CKEditor"
+      "unique": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "blogs": {
       "type": "relation",
@@ -54,18 +55,33 @@
         "files",
         "videos",
         "audios"
-      ]
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "breadcrumb": {
       "displayName": "Breadcrumb",
       "type": "component",
       "repeatable": true,
-      "component": "common.breadcrumb"
+      "component": "common.breadcrumb",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "meta": {
       "type": "component",
       "repeatable": false,
-      "component": "common.meta-data"
+      "component": "common.meta-data",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     },
     "comments": {
       "type": "relation",
@@ -73,11 +89,48 @@
       "target": "api::comment.comment",
       "mappedBy": "blog"
     },
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "news",
-        "technology-blog"
+    "like": {
+      "type": "integer",
+      "default": 0,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "mappedBy": "blogs"
+    },
+    "description": {
+      "type": "text",
+      "required": false,
+      "unique": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "mappedBy": "blogs"
+    },
+    "content": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "dynamiczone",
+      "components": [
+        "content.content",
+        "content.link",
+        "content.content-product"
       ]
     }
   }

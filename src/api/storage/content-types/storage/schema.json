@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "storages",
+  "info": {
+    "singularName": "storage",
+    "pluralName": "storages",
+    "displayName": "Storage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "userId": {
+      "type": "string",
+      "unique": false,
+      "required": true
+    },
+    "blogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog.blog"
+    }
+  }
+}

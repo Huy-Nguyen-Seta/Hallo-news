@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_common_post_by_categories",
+  "info": {
+    "displayName": "PostByCategory"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    }
+  }
+}

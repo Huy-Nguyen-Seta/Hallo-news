@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_layout_blogs",
+  "info": {
+    "displayName": "Blogs",
+    "icon": "file"
+  },
+  "options": {},
+  "attributes": {
+    "blogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog.blog"
+    }
+  }
+}

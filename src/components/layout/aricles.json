@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_layout_aricles",
+  "info": {
+    "displayName": "Aricles"
+  },
+  "options": {},
+  "attributes": {
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
+    }
+  }
+}

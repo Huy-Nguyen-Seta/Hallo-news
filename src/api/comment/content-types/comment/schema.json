@@ -34,29 +34,26 @@
       "type": "string",
       "required": true
     },
-    "email": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string",
-      "unique": false,
-      "required": true
-    },
-    "website": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string"
-    },
     "blog": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::blog.blog",
       "inversedBy": "comments"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment"
+    },
+    "like": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "integer",
+      "default": 0,
+      "min": 0
     }
   }
 }

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_layout_new_posts",
+  "info": {
+    "displayName": "NewPost",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
+    }
+  }
+}

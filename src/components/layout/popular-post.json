@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_layout_popular_posts",
+  "info": {
+    "displayName": "PopularPost",
+    "icon": "arrowUp"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

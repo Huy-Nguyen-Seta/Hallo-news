@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_common_products",
+  "info": {
+    "displayName": "product",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "productName": {
+      "type": "string"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "discount": {
+      "type": "float",
+      "max": 1,
+      "min": 0
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}

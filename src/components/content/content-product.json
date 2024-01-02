@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_common_content_products",
+  "info": {
+    "displayName": "contentProduct",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "product": {
+      "displayName": "product",
+      "type": "component",
+      "repeatable": true,
+      "component": "common.product"
+    }
+  }
+}
