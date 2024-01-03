@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_common_navbar_children",
+  "info": {
+    "displayName": "Navbar.Children"
+  },
+  "options": {},
+  "attributes": {
+    "href": {
+      "type": "text",
+      "required": true,
+      "default": "/"
+    },
+    "name": {
+      "type": "string"
+    },
+    "isNew": {
+      "type": "boolean"
+    }
+  }
+}
