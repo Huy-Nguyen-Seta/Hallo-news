@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_common_menus",
+  "info": {
+    "displayName": "menus"
+  },
+  "options": {},
+  "attributes": {
+    "href": {
+      "type": "text",
+      "default": "#"
+    },
+    "label": {
+      "type": "string"
+    }
+  }
+}

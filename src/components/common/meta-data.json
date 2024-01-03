@@ -25,6 +25,9 @@
     },
     "schema": {
       "type": "json"
+    },
+    "author": {
+      "type": "json"
     }
   }
 }

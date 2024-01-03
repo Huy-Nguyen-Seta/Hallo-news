@@ -11,6 +11,17 @@ export interface CommonBreadcrumb extends Schema.Component {
   };
 }
 
+export interface CommonMenus extends Schema.Component {
+  collectionName: 'components_common_menus';
+  info: {
+    displayName: 'menus';
+  };
+  attributes: {
+    href: Attribute.Text & Attribute.DefaultTo<'#'>;
+    label: Attribute.String;
+  };
+}
+
 export interface CommonMetaData extends Schema.Component {
   collectionName: 'components_common_meta_data';
   info: {
@@ -23,6 +34,19 @@ export interface CommonMetaData extends Schema.Component {
     metaDescription: Attribute.Text;
     keyword: Attribute.JSON;
     schema: Attribute.JSON;
+    author: Attribute.JSON;
+  };
+}
+
+export interface CommonNavbarChildren extends Schema.Component {
+  collectionName: 'components_common_navbar_children';
+  info: {
+    displayName: 'Navbar.Children';
+  };
+  attributes: {
+    href: Attribute.Text & Attribute.Required & Attribute.DefaultTo<'/'>;
+    name: Attribute.String;
+    isNew: Attribute.Boolean;
   };
 }
 
@@ -233,7 +257,9 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'common.breadcrumb': CommonBreadcrumb;
+      'common.menus': CommonMenus;
       'common.meta-data': CommonMetaData;
+      'common.navbar-children': CommonNavbarChildren;
       'common.post-by-category-and-tag': CommonPostByCategoryAndTag;
       'common.post-by-category': CommonPostByCategory;
       'common.product': CommonProduct;
