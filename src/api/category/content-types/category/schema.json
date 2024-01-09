@@ -40,12 +40,6 @@
         }
       }
     },
-    "blogs": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::blog.blog",
-      "inversedBy": "categories"
-    },
     "slug": {
       "pluginOptions": {
         "i18n": {
@@ -75,6 +69,12 @@
         }
       },
       "component": "common.meta-data"
+    },
+    "blogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog.blog",
+      "mappedBy": "category"
     }
   }
 }

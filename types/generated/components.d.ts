@@ -157,6 +157,21 @@ export interface ContentLink extends Schema.Component {
   };
 }
 
+export interface ContentSingleLink extends Schema.Component {
+  collectionName: 'components_common_single_links';
+  info: {
+    displayName: 'singleLink';
+    description: '';
+  };
+  attributes: {
+    blog: Attribute.Relation<
+      'content.single-link',
+      'oneToOne',
+      'api::blog.blog'
+    >;
+  };
+}
+
 export interface LayoutAricles extends Schema.Component {
   collectionName: 'components_layout_aricles';
   info: {
@@ -215,6 +230,28 @@ export interface LayoutContentLink extends Schema.Component {
   attributes: {};
 }
 
+export interface LayoutFooterItems extends Schema.Component {
+  collectionName: 'components_layout_footer_items';
+  info: {
+    displayName: 'FooterItems';
+  };
+  attributes: {
+    label: Attribute.String & Attribute.Required;
+    href: Attribute.Text & Attribute.Required & Attribute.DefaultTo<'#'>;
+  };
+}
+
+export interface LayoutFooterLink extends Schema.Component {
+  collectionName: 'components_layout_footer_links';
+  info: {
+    displayName: 'FooterLink';
+  };
+  attributes: {
+    groupName: Attribute.String & Attribute.Required;
+    items: Attribute.Component<'layout.footer-items', true>;
+  };
+}
+
 export interface LayoutNewPost extends Schema.Component {
   collectionName: 'components_layout_new_posts';
   info: {
@@ -239,6 +276,17 @@ export interface LayoutPopularPost extends Schema.Component {
   attributes: {
     title: Attribute.String & Attribute.Required;
     description: Attribute.Text;
+  };
+}
+
+export interface LayoutSubFooter extends Schema.Component {
+  collectionName: 'components_layout_sub_footers';
+  info: {
+    displayName: 'SubFooter';
+  };
+  attributes: {
+    groupName: Attribute.String & Attribute.Required;
+    items: Attribute.Component<'layout.footer-items', true>;
   };
 }
 
@@ -267,13 +315,17 @@ declare module '@strapi/types' {
       'content.content-product': ContentContentProduct;
       'content.content': ContentContent;
       'content.link': ContentLink;
+      'content.single-link': ContentSingleLink;
       'layout.aricles': LayoutAricles;
       'layout.banner': LayoutBanner;
       'layout.blogs': LayoutBlogs;
       'layout.category': LayoutCategory;
       'layout.content-link': LayoutContentLink;
+      'layout.footer-items': LayoutFooterItems;
+      'layout.footer-link': LayoutFooterLink;
       'layout.new-post': LayoutNewPost;
       'layout.popular-post': LayoutPopularPost;
+      'layout.sub-footer': LayoutSubFooter;
       'layout.video': LayoutVideo;
     }
   }

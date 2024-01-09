@@ -836,9 +836,9 @@ export interface ApiBlogBlog extends Schema.CollectionType {
         };
       }> &
       Attribute.DefaultTo<0>;
-    categories: Attribute.Relation<
+    category: Attribute.Relation<
       'api::blog.blog',
-      'manyToMany',
+      'manyToOne',
       'api::category.category'
     >;
     description: Attribute.Text &
@@ -847,15 +847,27 @@ export interface ApiBlogBlog extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    tags: Attribute.Relation<'api::blog.blog', 'manyToMany', 'api::tag.tag'>;
+    tag: Attribute.Relation<'api::blog.blog', 'manyToOne', 'api::tag.tag'>;
     content: Attribute.DynamicZone<
-      ['content.content', 'content.link', 'content.content-product']
+      [
+        'content.content',
+        'content.link',
+        'content.content-product',
+        'content.single-link'
+      ]
     > &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
+    viewCount: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<0>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -901,11 +913,6 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    blogs: Attribute.Relation<
-      'api::category.category',
-      'manyToMany',
-      'api::blog.blog'
-    >;
     slug: Attribute.String &
       Attribute.Required &
       Attribute.Unique &
@@ -930,6 +937,11 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    blogs: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::blog.blog'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1029,7 +1041,7 @@ export interface ApiCommentComment extends Schema.CollectionType {
   };
 }
 
-export interface ApiFooterFooter extends Schema.CollectionType {
+export interface ApiFooterFooter extends Schema.SingleType {
   collectionName: 'footers';
   info: {
     singularName: 'footer';
@@ -1045,14 +1057,13 @@ export interface ApiFooterFooter extends Schema.CollectionType {
     };
   };
   attributes: {
-    title: Attribute.String &
-      Attribute.Required &
+    Footer: Attribute.Component<'layout.footer-link', true> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    menus: Attribute.Component<'common.menus', true> &
+    SubFooter: Attribute.Component<'layout.sub-footer', true> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1221,6 +1232,39 @@ export interface ApiNavBarNavBar extends Schema.CollectionType {
   };
 }
 
+export interface ApiNotificationsFromCustomerNotificationsFromCustomer
+  extends Schema.CollectionType {
+  collectionName: 'notifications_from_customers';
+  info: {
+    singularName: 'notifications-from-customer';
+    pluralName: 'notifications-from-customers';
+    displayName: ' Notifications from customer';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    email: Attribute.Email & Attribute.Required;
+    message: Attribute.Text & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::notifications-from-customer.notifications-from-customer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::notifications-from-customer.notifications-from-customer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiStorageStorage extends Schema.CollectionType {
   collectionName: 'storages';
   info: {
@@ -1288,7 +1332,6 @@ export interface ApiTagTag extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    blogs: Attribute.Relation<'api::tag.tag', 'manyToMany', 'api::blog.blog'>;
     color: Attribute.Enumeration<
       ['indigo', 'red', 'yellow', 'pink', 'blue', 'gray', 'purple', 'green']
     > &
@@ -1303,6 +1346,7 @@ export interface ApiTagTag extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    blogs: Attribute.Relation<'api::tag.tag', 'oneToMany', 'api::blog.blog'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1342,6 +1386,7 @@ declare module '@strapi/types' {
       'api::footer.footer': ApiFooterFooter;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::nav-bar.nav-bar': ApiNavBarNavBar;
+      'api::notifications-from-customer.notifications-from-customer': ApiNotificationsFromCustomerNotificationsFromCustomer;
       'api::storage.storage': ApiStorageStorage;
       'api::tag.tag': ApiTagTag;
     }

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_common_single_links",
+  "info": {
+    "displayName": "singleLink",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "blog": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::blog.blog"
+    }
+  }
+}

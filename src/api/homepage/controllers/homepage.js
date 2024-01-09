@@ -16,11 +16,11 @@ module.exports = createCoreController(
         populate: [
           "NewPost.categories",
           "PopularPost",
-          "Section1.category.blogs.tags",
+          "Section1.category.blogs.tag",
           "Section1.category.blogs.thumbnailImage",
           "Section1.category.blogs.author",
           "Section1.category.blogs.comments",
-          "Section1.tags"
+          "Section1.tags",
         ],
         where: { locale: locale },
       });
@@ -28,19 +28,18 @@ module.exports = createCoreController(
       const popularPost = await strapi.db.query("api::blog.blog").findMany({
         orderBy: { like: "desc" },
         where: { locale: locale },
-        populate: ["thumbnailImage", "tags", "author.image", "comments"],
+        populate: ["thumbnailImage", "tag", "author.image", "comments"],
       });
       if (data?.PopularPost && popularPost) {
         data.PopularPost = { ...data.PopularPost, data: popularPost };
       }
-
       if (data?.Section1?.tags) {
         const tagPost = data?.Section1?.tags.map((item) => ({
-          [item?.id]: data?.Section1?.category?.blogs?.filter((items) =>
-            items?.tags?.map((value) => value.id)?.includes(item?.id)
+          [item?.id]: data?.Section1?.category?.blogs?.filter(
+            (items) => items?.tag?.id === item?.id
           ),
         }));
-        
+
         data.Section1.tagPost = tagPost;
       }
 
@@ -50,9 +49,7 @@ module.exports = createCoreController(
       const locale = ctx.query?.locale;
       await this.validateQuery(ctx);
       const data = await strapi.db.query("api::homepage.homepage").findOne({
-        populate: [
-          "Seo.metaImage",
-        ],
+        populate: ["Seo.metaImage"],
         where: { locale: locale },
       });
       return { data };
@@ -62,10 +59,10 @@ module.exports = createCoreController(
       await this.validateQuery(ctx);
       const data = await strapi.db.query("api::homepage.homepage").findOne({
         populate: [
-          "PostByCategory.category.blogs.tags",
+          "PostByCategory.category.blogs.tag",
           "PostByCategory.category.blogs.thumbnailImage",
           "PostByCategory.category.blogs.author.image",
-          "PostByCategory.category.blogs.comments"
+          "PostByCategory.category.blogs.comments",
         ],
         where: { locale: locale },
       });
@@ -73,4 +70,3 @@ module.exports = createCoreController(
     },
   })
 );
-

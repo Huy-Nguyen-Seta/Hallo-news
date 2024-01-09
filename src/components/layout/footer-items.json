@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_layout_footer_items",
+  "info": {
+    "displayName": "FooterItems"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "text",
+      "default": "#",
+      "required": true
+    }
+  }
+}
