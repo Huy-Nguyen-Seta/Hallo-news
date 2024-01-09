@@ -1,12 +1,18 @@
 {
   "collectionName": "components_layout_footer_bottoms",
   "info": {
-    "displayName": "FooterBottom"
+    "displayName": "FooterBottom",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "label": {
       "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "default": "#",
       "required": true
     }
   }

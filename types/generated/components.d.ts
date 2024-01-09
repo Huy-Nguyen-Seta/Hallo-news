@@ -234,9 +234,11 @@ export interface LayoutFooterBottom extends Schema.Component {
   collectionName: 'components_layout_footer_bottoms';
   info: {
     displayName: 'FooterBottom';
+    description: '';
   };
   attributes: {
     label: Attribute.String & Attribute.Required;
+    href: Attribute.String & Attribute.Required & Attribute.DefaultTo<'#'>;
   };
 }
 
