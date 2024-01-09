@@ -1047,6 +1047,7 @@ export interface ApiFooterFooter extends Schema.SingleType {
     singularName: 'footer';
     pluralName: 'footers';
     displayName: 'Footer';
+    description: '';
   };
   options: {
     draftAndPublish: true;

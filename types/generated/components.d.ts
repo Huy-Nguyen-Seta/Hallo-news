@@ -283,10 +283,10 @@ export interface LayoutSubFooter extends Schema.Component {
   collectionName: 'components_layout_sub_footers';
   info: {
     displayName: 'SubFooter';
+    description: '';
   };
   attributes: {
     groupName: Attribute.String & Attribute.Required;
-    items: Attribute.Component<'layout.footer-items', true>;
   };
 }
 

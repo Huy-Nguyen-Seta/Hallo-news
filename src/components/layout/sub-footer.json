@@ -1,18 +1,14 @@
 {
   "collectionName": "components_layout_sub_footers",
   "info": {
-    "displayName": "SubFooter"
+    "displayName": "SubFooter",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "groupName": {
       "type": "string",
       "required": true
-    },
-    "items": {
-      "type": "component",
-      "repeatable": true,
-      "component": "layout.footer-items"
     }
   }
 }
