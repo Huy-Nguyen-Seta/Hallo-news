@@ -230,6 +230,16 @@ export interface LayoutContentLink extends Schema.Component {
   attributes: {};
 }
 
+export interface LayoutFooterBottom extends Schema.Component {
+  collectionName: 'components_layout_footer_bottoms';
+  info: {
+    displayName: 'FooterBottom';
+  };
+  attributes: {
+    label: Attribute.String & Attribute.Required;
+  };
+}
+
 export interface LayoutFooterItems extends Schema.Component {
   collectionName: 'components_layout_footer_items';
   info: {
@@ -321,6 +331,7 @@ declare module '@strapi/types' {
       'layout.blogs': LayoutBlogs;
       'layout.category': LayoutCategory;
       'layout.content-link': LayoutContentLink;
+      'layout.footer-bottom': LayoutFooterBottom;
       'layout.footer-items': LayoutFooterItems;
       'layout.footer-link': LayoutFooterLink;
       'layout.new-post': LayoutNewPost;

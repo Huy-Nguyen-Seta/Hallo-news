@@ -27,8 +27,8 @@
       },
       "component": "layout.footer-link"
     },
-    "SubFooter": {
-      "displayName": "SubFooter",
+    "FooterBottom": {
+      "displayName": "FooterBottom",
       "type": "component",
       "repeatable": true,
       "pluginOptions": {
@@ -36,7 +36,7 @@
           "localized": true
         }
       },
-      "component": "layout.sub-footer"
+      "component": "layout.footer-bottom"
     }
   }
 }

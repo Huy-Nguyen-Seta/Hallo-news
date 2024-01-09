@@ -1064,7 +1064,7 @@ export interface ApiFooterFooter extends Schema.SingleType {
           localized: true;
         };
       }>;
-    SubFooter: Attribute.Component<'layout.sub-footer', true> &
+    FooterBottom: Attribute.Component<'layout.footer-bottom', true> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

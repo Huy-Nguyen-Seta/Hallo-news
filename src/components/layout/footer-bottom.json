@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_layout_footer_bottoms",
+  "info": {
+    "displayName": "FooterBottom"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
