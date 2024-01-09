@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notifications_from_customers",
+  "info": {
+    "singularName": "notifications-from-customer",
+    "pluralName": "notifications-from-customers",
+    "displayName": " Notifications from customer",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "message": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

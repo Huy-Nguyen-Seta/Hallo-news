@@ -12,9 +12,9 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
     const { id } = ctx.params;
     await this.validateQuery(ctx);
     const data = await strapi.db.query("api::blog.blog").findMany({
-      where: { locale: locale, ...(id !== "0" && { categories: id }) },
+      where: { locale: locale, ...(id !== "0" && { category: id }) },
       orderBy: { createdAt: "desc" },
-      populate: ["author.image", "tags", "thumbnailImage", "comments"],
+      populate: ["author.image", "tag", "thumbnailImage", "comments"],
       limit: 5,
     });
 
@@ -25,18 +25,34 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
     const query = {
       filters: { slug },
       populate: [
-        "tags",
+        "tag",
         "author.image",
         "blogs.thumbnailImage",
         "blogs.author.image",
-        "blogs.tags",
+        "blogs.tag",
         "content.blog.thumbnailImage",
         "content.product.image",
         "comments",
+        "category"
       ],
     };
     const post = await strapi.entityService.findMany("api::blog.blog", query);
     const sanitizedEntity = await this.sanitizeOutput(post, ctx);
+
+    const data = sanitizedEntity[0];
+    if (data.id) {
+      const updateViewCount = await strapi.entityService.update(
+        "api::blog.blog",
+        data.id,
+        {
+          data: {
+            viewCount: data.viewCount ? data.viewCount + 1 : 1,
+          },
+        }
+      );
+      // console.log("updateViewCount", updateViewCount);
+    }
+
     return this.transformResponse(sanitizedEntity[0]);
   },
   async findBLogSeoBySlug(ctx) {
@@ -66,13 +82,13 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
         ...(isRecent && { createdAt: "desc" }),
         ...(isMostLike ? { like: "desc" } : { createdAt: "desc" }),
       },
-      populate: ["author.image", "tags", "thumbnailImage", "comments"],
+      populate: ["author.image", "tag", "thumbnailImage", "comments"],
       ...(limit && { limit: Number(limit) }),
       ...(start && { start: Number(start) }),
       filters: {
         locale: locale,
-        ...(cateSlug && { categories: { slug: cateSlug } }),
-        ...(tagSlugs && { tags: { slug: tagSlugs } }),
+        ...(cateSlug && { category: { slug: cateSlug } }),
+        ...(tagSlugs && { tag: { slug: tagSlugs } }),
         ...(authorSlug && { author: { slug: authorSlug } }),
         ...(searchValue && { title: { $containsi: searchValue } }),
       },
@@ -89,8 +105,8 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
       populate: ["author.image", "tags", "thumbnailImage"],
       filters: {
         locale: locale,
-        ...(cateSlug && { categories: { slug: cateSlug } }),
-        ...(tagSlugs && { tags: { slug: tagSlugs } }),
+        ...(cateSlug && { category: { slug: cateSlug } }),
+        ...(tagSlugs && { tag: { slug: tagSlugs } }),
         ...(authorSlug && { author: { slug: authorSlug } }),
         ...(searchValue && { title: { $containsi: searchValue } }),
       },

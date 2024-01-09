@@ -98,11 +98,11 @@
         }
       }
     },
-    "categories": {
+    "category": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "manyToOne",
       "target": "api::category.category",
-      "mappedBy": "blogs"
+      "inversedBy": "blogs"
     },
     "description": {
       "type": "text",
@@ -114,11 +114,11 @@
         }
       }
     },
-    "tags": {
+    "tag": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "manyToOne",
       "target": "api::tag.tag",
-      "mappedBy": "blogs"
+      "inversedBy": "blogs"
     },
     "content": {
       "pluginOptions": {
@@ -130,8 +130,18 @@
       "components": [
         "content.content",
         "content.link",
-        "content.content-product"
+        "content.content-product",
+        "content.single-link"
       ]
+    },
+    "viewCount": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "integer",
+      "default": 0
     }
   }
 }

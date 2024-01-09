@@ -1,5 +1,5 @@
 {
-  "kind": "collectionType",
+  "kind": "singleType",
   "collectionName": "footers",
   "info": {
     "singularName": "footer",
@@ -15,17 +15,8 @@
     }
   },
   "attributes": {
-    "title": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string",
-      "required": true
-    },
-    "menus": {
-      "displayName": "menus",
+    "Footer": {
+      "displayName": "FooterLink",
       "type": "component",
       "repeatable": true,
       "pluginOptions": {
@@ -33,7 +24,18 @@
           "localized": true
         }
       },
-      "component": "common.menus"
+      "component": "layout.footer-link"
+    },
+    "SubFooter": {
+      "displayName": "SubFooter",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "layout.sub-footer"
     }
   }
 }

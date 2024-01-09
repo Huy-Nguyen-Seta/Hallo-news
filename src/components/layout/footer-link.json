@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_layout_footer_links",
+  "info": {
+    "displayName": "FooterLink"
+  },
+  "options": {},
+  "attributes": {
+    "groupName": {
+      "type": "string",
+      "required": true
+    },
+    "items": {
+      "displayName": "FooterItems",
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.footer-items"
+    }
+  }
+}
