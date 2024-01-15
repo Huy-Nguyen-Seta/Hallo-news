@@ -25,11 +25,6 @@ function toLowerCaseNonAccentVietnamese(str) {
 module.exports = {
   beforeCreate(event) {
     const { data, where, select, populate } = event.params;
-    event.params.data.slug = handleTextToUniqueId(event.params.data.title);
-  },
-  afterCreate(event) {
-    const { result, params } = event;
-
-    // do something to the result;
+    event.params.data.slug = handleTextToUniqueId(event.params.data.tagName);
   },
 };
