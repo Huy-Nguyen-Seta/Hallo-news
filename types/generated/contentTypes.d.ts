@@ -1165,6 +1165,53 @@ export interface ApiHomepageHomepage extends Schema.SingleType {
   };
 }
 
+export interface ApiListPageListPage extends Schema.SingleType {
+  collectionName: 'list_pages';
+  info: {
+    singularName: 'list-page';
+    pluralName: 'list-pages';
+    displayName: 'List Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    thumbnailImage: Attribute.Media &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::list-page.list-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::list-page.list-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::list-page.list-page',
+      'oneToMany',
+      'api::list-page.list-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiNavBarNavBar extends Schema.CollectionType {
   collectionName: 'nav_bars';
   info: {
@@ -1386,6 +1433,7 @@ declare module '@strapi/types' {
       'api::comment.comment': ApiCommentComment;
       'api::footer.footer': ApiFooterFooter;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::list-page.list-page': ApiListPageListPage;
       'api::nav-bar.nav-bar': ApiNavBarNavBar;
       'api::notifications-from-customer.notifications-from-customer': ApiNotificationsFromCustomerNotificationsFromCustomer;
       'api::storage.storage': ApiStorageStorage;
