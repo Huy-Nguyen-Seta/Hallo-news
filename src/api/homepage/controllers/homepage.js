@@ -27,7 +27,12 @@ module.exports = createCoreController(
 
       const popularPost = await strapi.db.query("api::blog.blog").findMany({
         orderBy: { like: "desc" },
-        where: { locale: locale },
+        where: {
+          locale: locale,
+          publishedAt: {
+            $notNull: true,
+          },
+        },
         populate: ["thumbnailImage", "tag", "author.image", "comments"],
       });
       if (data?.PopularPost && popularPost) {
@@ -36,7 +41,7 @@ module.exports = createCoreController(
       if (data?.Section1?.tags) {
         const tagPost = data?.Section1?.tags.map((item) => ({
           [item?.id]: data?.Section1?.category?.blogs?.filter(
-            (items) => items?.tag?.id === item?.id
+            (items) => items?.tag?.id === item?.id && items?.publishedAt !== null
           ),
         }));
 
@@ -64,9 +69,26 @@ module.exports = createCoreController(
           "PostByCategory.category.blogs.author.image",
           "PostByCategory.category.blogs.comments",
         ],
-        where: { locale: locale },
+        where: {
+          locale: locale,
+        },
       });
-      return { data };
+      const sumWithInitial = data?.PostByCategory?.reduce(
+        (accumulator, currentValue) => [
+          ...accumulator,
+          {
+            ...currentValue,
+            category: {
+              ...currentValue?.category,
+              blogs: currentValue?.category?.blogs?.filter(
+                (item) => item?.publishedAt !== null
+              ),
+            },
+          },
+        ],
+        []
+      );
+      return { data: { PostByCategory: sumWithInitial } };
     },
   })
 );

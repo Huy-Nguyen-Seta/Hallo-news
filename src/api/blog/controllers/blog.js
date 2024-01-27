@@ -12,7 +12,13 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
     const { id } = ctx.params;
     await this.validateQuery(ctx);
     const data = await strapi.db.query("api::blog.blog").findMany({
-      where: { locale: locale, ...(id !== "0" && { category: id }) },
+      where: {
+        locale: locale,
+        publishedAt: {
+          $notNull: true,
+        },
+        ...(id !== "0" && { category: id }),
+      },
       orderBy: { createdAt: "desc" },
       populate: ["author.image", "tag", "thumbnailImage", "comments"],
       limit: 5,
@@ -33,7 +39,7 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
         "content.blog.thumbnailImage",
         "content.product.image",
         "comments",
-        "category"
+        "category",
       ],
     };
     const post = await strapi.entityService.findMany("api::blog.blog", query);
@@ -86,6 +92,9 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
       ...(limit && { limit: Number(limit) }),
       ...(start && { start: Number(start) }),
       filters: {
+        publishedAt: {
+          $notNull: true,
+        },
         locale: locale,
         ...(cateSlug && { category: { slug: cateSlug } }),
         ...(tagSlugs && { tag: { slug: tagSlugs } }),
@@ -104,6 +113,9 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
       },
       populate: ["author.image", "tags", "thumbnailImage"],
       filters: {
+        publishedAt: {
+          $notNull: true,
+        },
         locale: locale,
         ...(cateSlug && { category: { slug: cateSlug } }),
         ...(tagSlugs && { tag: { slug: tagSlugs } }),
