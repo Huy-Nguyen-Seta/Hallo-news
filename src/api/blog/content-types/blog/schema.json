@@ -41,11 +41,6 @@
         }
       }
     },
-    "blogs": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::blog.blog"
-    },
     "thumbnailImage": {
       "type": "media",
       "multiple": false,
