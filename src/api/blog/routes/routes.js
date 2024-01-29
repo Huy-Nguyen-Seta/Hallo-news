@@ -7,6 +7,11 @@ module.exports = {
     },
     {
       method: "GET",
+      path: "/byCateNoLimit/:id",
+      handler: "api::blog.blog.getNewPostByCategoryNoLimit",
+    },
+    {
+      method: "GET",
       path: "/getBlog/:slug",
       handler: "api::blog.blog.findBySlug",
     },
