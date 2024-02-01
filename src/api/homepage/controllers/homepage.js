@@ -16,7 +16,7 @@ module.exports = createCoreController(
         populate: [
           "NewPost.categories",
           "PopularPost",
-          "Section1.category.blogs.tag",
+          "Section1.category.blogs.tags",
           "Section1.category.blogs.thumbnailImage",
           "Section1.category.blogs.author",
           "Section1.category.blogs.comments",
@@ -33,15 +33,15 @@ module.exports = createCoreController(
             $notNull: true,
           },
         },
-        populate: ["thumbnailImage", "tag", "author.image", "comments"],
+        populate: ["thumbnailImage", "tags", "author.image", "comments"],
       });
       if (data?.PopularPost && popularPost) {
         data.PopularPost = { ...data.PopularPost, data: popularPost };
       }
       if (data?.Section1?.tags) {
         const tagPost = data?.Section1?.tags.map((item) => ({
-          [item?.id]: data?.Section1?.category?.blogs?.filter(
-            (items) => items?.tag?.id === item?.id && items?.publishedAt !== null
+          [item?.id]: data?.Section1?.category?.blogs?.filter((items) =>
+            items?.tags?.map((value) => value.id)?.includes(item?.id)
           ),
         }));
 
@@ -64,7 +64,7 @@ module.exports = createCoreController(
       await this.validateQuery(ctx);
       const data = await strapi.db.query("api::homepage.homepage").findOne({
         populate: [
-          "PostByCategory.category.blogs.tag",
+          "PostByCategory.category.blogs.tags",
           "PostByCategory.category.blogs.thumbnailImage",
           "PostByCategory.category.blogs.author.image",
           "PostByCategory.category.blogs.comments",

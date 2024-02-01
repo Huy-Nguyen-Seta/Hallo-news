@@ -20,7 +20,7 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
         ...(id !== "0" && { category: id }),
       },
       orderBy: { createdAt: "desc" },
-      populate: ["author.image", "tag", "thumbnailImage", "comments"],
+      populate: ["author.image", "tags", "thumbnailImage", "comments"],
       limit: 5,
     });
 
@@ -43,11 +43,11 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
     const query = {
       filters: { slug },
       populate: [
-        "tag",
+        "tags",
         "author.image",
         "blogs.thumbnailImage",
         "blogs.author.image",
-        "blogs.tag",
+        "blogs.tags",
         "content.blog.thumbnailImage",
         "content.product.image",
         "comments",
@@ -100,7 +100,7 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
         ...(isRecent && { createdAt: "desc" }),
         ...(isMostLike ? { like: "desc" } : { createdAt: "desc" }),
       },
-      populate: ["author.image", "tag", "thumbnailImage", "comments"],
+      populate: ["author.image", "tags", "thumbnailImage", "comments"],
       ...(limit && { limit: Number(limit) }),
       ...(start && { start: Number(start) }),
       filters: {
@@ -109,7 +109,7 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
         },
         locale: locale,
         ...(cateSlug && { category: { slug: cateSlug } }),
-        ...(tagSlugs && { tag: { slug: tagSlugs } }),
+        ...(tagSlugs && { tags: { slug: tagSlugs } }),
         ...(authorSlug && { author: { slug: authorSlug } }),
         ...(searchValue && { title: { $containsi: searchValue } }),
       },
