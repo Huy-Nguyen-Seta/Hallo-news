@@ -847,7 +847,7 @@ export interface ApiBlogBlog extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    tag: Attribute.Relation<'api::blog.blog', 'manyToOne', 'api::tag.tag'>;
+    tags: Attribute.Relation<'api::blog.blog', 'manyToMany', 'api::tag.tag'>;
     content: Attribute.DynamicZone<
       [
         'content.content',
@@ -1434,7 +1434,7 @@ export interface ApiTagTag extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    blogs: Attribute.Relation<'api::tag.tag', 'oneToMany', 'api::blog.blog'>;
+    blogs: Attribute.Relation<'api::tag.tag', 'manyToMany', 'api::blog.blog'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
