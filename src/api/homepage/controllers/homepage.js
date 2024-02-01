@@ -41,7 +41,7 @@ module.exports = createCoreController(
       if (data?.Section1?.tags) {
         const tagPost = data?.Section1?.tags.map((item) => ({
           [item?.id]: data?.Section1?.category?.blogs?.filter((items) =>
-            items?.tags?.map((value) => value.id)?.includes(item?.id)
+            items?.tags?.map((value) => value.id)?.includes(item?.id) && items?.publishedAt !== null
           ),
         }));
 
