@@ -31,7 +31,13 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
     const { id } = ctx.params;
     await this.validateQuery(ctx);
     const data = await strapi.db.query("api::blog.blog").findMany({
-      where: { locale: locale, ...(id !== "0" && { category: id }) },
+      where: {
+        locale: locale,
+        publishedAt: {
+          $notNull: true,
+        },
+        ...(id !== "0" && { category: id }),
+      },
       orderBy: { createdAt: "desc" },
       populate: ["author.image", "tag", "thumbnailImage", "comments"],
     });
