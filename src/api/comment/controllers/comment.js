@@ -9,9 +9,9 @@ const { createCoreController } = require("@strapi/strapi").factories;
 module.exports = createCoreController("api::comment.comment", ({ strapi }) => ({
   async findByPostSlug(ctx) {
     const { slug } = ctx.params;
-    const { limit, start } = ctx.query;
+    const { limit, start, locale } = ctx.query;
     const query = {
-      filters: { blog: { slug: slug } },
+      filters: { blog: { slug: slug }, locale },
       populate: ["comments"],
       sort: { createdAt: "desc" },
       ...(limit && { limit: limit }),

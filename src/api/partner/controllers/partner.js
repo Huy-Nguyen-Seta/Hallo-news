@@ -46,9 +46,11 @@ module.exports = createCoreController("api::partner.partner", ({ strapi }) => ({
     };
   },
   async findPartnerBySlug(ctx) {
-    const { slug } = ctx.params;
+    const locale = ctx.query?.locale;
+
+    const { slug} = ctx.params;
     const query = {
-      filters: { slug },
+      filters: { slug, locale },
       populate: ["content", "thumbnailImage"],
     };
     const post = await strapi.entityService.findMany(
@@ -59,9 +61,10 @@ module.exports = createCoreController("api::partner.partner", ({ strapi }) => ({
     return this.transformResponse(sanitizedEntity[0]);
   },
   async findPartnerSeoBySlug(ctx) {
+    const locale = ctx.query?.locale;
     const { slug } = ctx.params;
     const query = {
-      filters: { slug },
+      filters: { slug, locale },
       populate: ["meta.metaImage"],
     };
     const post = await strapi.entityService.findMany(

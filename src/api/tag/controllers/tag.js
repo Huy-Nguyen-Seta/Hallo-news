@@ -24,9 +24,10 @@ module.exports = createCoreController("api::tag.tag", ({ strapi }) => ({
     return { data : data };
   },
   async findBySlug(ctx) {
+    const locale = ctx.query?.locale;
     const { slug } = ctx.params;
     const query = {
-      filters: { slug },
+      filters: { slug, locale },
       populate: { blogs: { count: true } },
     };
     const cate = await strapi.entityService.findMany("api::tag.tag", query);
@@ -34,9 +35,10 @@ module.exports = createCoreController("api::tag.tag", ({ strapi }) => ({
     return { data: sanitizedEntity[0] };
   },
   async findTagsSeoBySlug(ctx) {
+    const locale = ctx.query?.locale;
     const { slug } = ctx.params;
     const query = {
-      filters: { slug },
+      filters: { slug, locale },
       populate: ["metaData.metaImage"],
     };
     const cate = await strapi.entityService.findMany("api::tag.tag", query);
