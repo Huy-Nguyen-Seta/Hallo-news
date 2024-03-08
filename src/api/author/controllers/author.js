@@ -11,11 +11,10 @@ module.exports = createCoreController("api::author.author", ({ strapi }) => ({
     const locale = ctx.query?.locale;
     const { slug } = ctx.params;
     const query = {
-      filters: { slug, locale },
+      where: { slug, locale },
       populate: { image: true, blogs: { count: true } },
     };
-    const author = await strapi.entityService.findMany(
-      "api::author.author",
+    const author = await strapi.db.query("api::author.author").findMany(
       query
     );
     const sanitizedEntity = await this.sanitizeOutput(author, ctx);
@@ -25,11 +24,10 @@ module.exports = createCoreController("api::author.author", ({ strapi }) => ({
     const locale = ctx.query?.locale;
     const { slug } = ctx.params;
     const query = {
-      filters: { slug, locale },
+      where: { slug, locale },
       populate: ["metaData.metaImage"],
     };
-    const author = await strapi.entityService.findMany(
-      "api::author.author",
+    const author = await strapi.db.query("api::author.author").findMany(
       query
     );
     const sanitizedEntity = await this.sanitizeOutput(author, ctx);
@@ -40,26 +38,24 @@ module.exports = createCoreController("api::author.author", ({ strapi }) => ({
     const { limit, start, searchValue, locale } = ctx.query;
     const query = {
       populate: { image: true, backgroundImage: true, blogs: { count: true } },
-      filters: {
+      where: {
         locale,
         ...(searchValue && { name: { $containsi: searchValue } }),
       },
       ...(limit && { limit: Number(limit) }),
-      ...(start && { start: Number(start) }),
+      ...(start && { offset: Number(start) }),
     };
-    const author = await strapi.entityService.findMany(
-      "api::author.author",
+    const author = await strapi.db.query("api::author.author").findMany(
       query
     );
     const sanitizedEntity = await this.sanitizeOutput(author, ctx);
 
     const queryCount = {
       populate: { image: true, backgroundImage: true, blogs: { count: true } },
-      filters: { ...(searchValue && { name: { $containsi: searchValue } }) },
+      where: { ...(searchValue && { name: { $containsi: searchValue } }) },
     };
 
-    const authorCount = await strapi.entityService.findMany(
-      "api::author.author",
+    const authorCount = strapi.db.query("api::author.author").findMany(
       queryCount
     );
     const countEntity = await this.sanitizeOutput(authorCount, ctx);

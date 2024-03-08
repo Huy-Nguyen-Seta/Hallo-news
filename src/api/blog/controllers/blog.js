@@ -10,7 +10,6 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
   async getNewPostByCategory(ctx) {
     const locale = ctx.query?.locale;
     const { id } = ctx.params;
-    await this.validateQuery(ctx);
     const data = await strapi.db.query("api::blog.blog").findMany({
       where: {
         locale: locale,
@@ -29,7 +28,6 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
   async getNewPostByCategoryNoLimit(ctx) {
     const locale = ctx.query?.locale;
     const { id } = ctx.params;
-    await this.validateQuery(ctx);
     const data = await strapi.db.query("api::blog.blog").findMany({
       where: {
         locale: locale,
@@ -48,7 +46,7 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
     const locale = ctx.query?.locale;
     const { slug } = ctx.params;
     const query = {
-      filters: { slug, locale },
+      where: { slug, locale },
       populate: [
         "tags",
         "author.image",
@@ -61,7 +59,7 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
         "category",
       ],
     };
-    const post = await strapi.entityService.findMany("api::blog.blog", query);
+    const post = await strapi.db.query("api::blog.blog").findMany(query);
     const sanitizedEntity = await this.sanitizeOutput(post, ctx);
 
     const data = sanitizedEntity[0];
@@ -84,10 +82,10 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
     const locale = ctx.query?.locale;
     const { slug } = ctx.params;
     const query = {
-      filters: { slug, locale },
+      where: { slug, locale },
       populate: ["meta.metaImage"],
     };
-    const post = await strapi.entityService.findMany("api::blog.blog", query);
+    const post = await strapi.db.query("api::blog.blog").findMany(query);
     const sanitizedEntity = await this.sanitizeOutput(post, ctx);
     return this.transformResponse(sanitizedEntity[0]);
   },
@@ -104,14 +102,14 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
       searchValue,
     } = ctx.query;
     const query = {
-      sort: {
+      orderBy: {
         ...(isRecent && { createdAt: "desc" }),
         ...(isMostLike ? { like: "desc" } : { createdAt: "desc" }),
       },
       populate: ["author.image", "tags", "thumbnailImage", "comments"],
       ...(limit && { limit: Number(limit) }),
       ...(start && { start: Number(start) }),
-      filters: {
+      where: {
         publishedAt: {
           $notNull: true,
         },
@@ -122,17 +120,17 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
         ...(searchValue && { title: { $containsi: searchValue } }),
       },
     };
-    const post = await strapi.entityService.findMany("api::blog.blog", query);
+    const post = await strapi.db.query("api::blog.blog").findMany(query);
     const postSanitizedEntity = await this.sanitizeOutput(post, ctx);
 
     //count
     const queryCount = {
-      sort: {
+      orderBy: {
         ...(isRecent && { createdAt: "desc" }),
         ...(isMostLike ? { like: "desc" } : { createdAt: "desc" }),
       },
       populate: ["author.image", "tags", "thumbnailImage"],
-      filters: {
+      where: {
         publishedAt: {
           $notNull: true,
         },
@@ -143,10 +141,9 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
         ...(searchValue && { title: { $containsi: searchValue } }),
       },
     };
-    const postQueryCount = await strapi.entityService.findMany(
-      "api::blog.blog",
-      queryCount
-    );
+    const postQueryCount = await strapi.db
+      .query("api::blog.blog")
+      .findMany(queryCount);
     const countSanitizedEntity = await this.sanitizeOutput(postQueryCount, ctx);
     //end count
 
@@ -161,12 +158,13 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
     let entry;
 
     const query = {
-      filters: { id: blogId },
-      populate: "*",
+      where: { id: blogId },
+      populate: ["*"],
     };
-    const blog = await strapi.entityService.findMany("api::blog.blog", query);
+    const blog = await strapi.db.query("api::blog.blog").findMany(query);
     const sanitizedEntity = await this.sanitizeOutput(blog, ctx);
     const likeCount = sanitizedEntity[0]?.like + 1;
+  
 
     entry = await strapi.entityService.update("api::blog.blog", blogId, {
       data: {

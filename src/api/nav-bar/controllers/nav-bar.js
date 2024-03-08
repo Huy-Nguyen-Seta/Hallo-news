@@ -11,13 +11,10 @@ module.exports = createCoreController("api::nav-bar.nav-bar", ({ strapi }) => ({
     const locale = ctx.query?.locale;
     const query = {
       populate: ["children"],
-      sort: { priority: "asc" },
-      filters: { locale },
+      orderBy: { priority: "asc" },
+      where: { locale },
     };
-    const cate = await strapi.entityService.findMany(
-      "api::nav-bar.nav-bar",
-      query
-    );
+    const cate = await strapi.db.query("api::nav-bar.nav-bar").findMany(query);
     const sanitizedEntity = await this.sanitizeOutput(cate, ctx);
     return { data: sanitizedEntity };
   },
