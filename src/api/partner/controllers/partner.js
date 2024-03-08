@@ -10,33 +10,28 @@ module.exports = createCoreController("api::partner.partner", ({ strapi }) => ({
   async getPartners(ctx) {
     const locale = ctx.query?.locale;
     const { limit, start } = ctx.query;
-    await this.validateQuery(ctx);
-    const partners = await strapi.entityService.findMany(
-      "api::partner.partner",
-      {
-        filters: {
-          locale: locale,
-          publishedAt: {
-            $notNull: true,
-          },
+    const partners = await strapi.db.query("api::partner.partner").findMany({
+      where: {
+        locale: locale,
+        publishedAt: {
+          $notNull: true,
         },
-        sort: { createdDate: "desc" },
-        populate: ["thumbnailImage"],
-        ...(limit && { limit: Number(limit) }),
-        ...(start && { start: Number(start) }),
-      }
-    );
+      },
+      orderBy: { createdDate: "desc" },
+      populate: ["thumbnailImage"],
+      ...(limit && { limit: Number(limit) }),
+      ...(start && { offset: Number(start) }),
+    });
 
     const queryCount = {
-      filters: {
+      where: {
         locale: locale,
         publishedAt: {
           $notNull: true,
         },
       },
     };
-    const postQueryCount = await strapi.entityService.findMany(
-      "api::partner.partner",
+    const postQueryCount = await strapi.db.query("api::partner.partner").findMany(
       queryCount
     );
     const countSanitizedEntity = await this.sanitizeOutput(postQueryCount, ctx);
@@ -48,13 +43,12 @@ module.exports = createCoreController("api::partner.partner", ({ strapi }) => ({
   async findPartnerBySlug(ctx) {
     const locale = ctx.query?.locale;
 
-    const { slug} = ctx.params;
+    const { slug } = ctx.params;
     const query = {
-      filters: { slug, locale },
+      where: { slug, locale },
       populate: ["content", "thumbnailImage"],
     };
-    const post = await strapi.entityService.findMany(
-      "api::partner.partner",
+    const post = await strapi.db.query("api::partner.partner").findMany(
       query
     );
     const sanitizedEntity = await this.sanitizeOutput(post, ctx);
@@ -64,11 +58,10 @@ module.exports = createCoreController("api::partner.partner", ({ strapi }) => ({
     const locale = ctx.query?.locale;
     const { slug } = ctx.params;
     const query = {
-      filters: { slug, locale },
+      where: { slug, locale },
       populate: ["meta.metaImage"],
     };
-    const post = await strapi.entityService.findMany(
-      "api::partner.partner",
+    const post = await strapi.db.query("api::partner.partner").findMany(
       query
     );
     const sanitizedEntity = await this.sanitizeOutput(post, ctx);

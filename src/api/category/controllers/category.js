@@ -12,11 +12,10 @@ module.exports = createCoreController(
     async getCategories(ctx) {
       const locale = ctx.query?.locale;
       const limit = ctx.query?.limit;
-      await this.validateQuery(ctx);
 
       const data = await strapi.db.query("api::category.category").findMany({
-        where: { locale: locale },
         orderBy: { priority: "asc" },
+        where: {locale},
         populate: { image: true, blogs: { count: true } },
       });
 
@@ -26,11 +25,10 @@ module.exports = createCoreController(
       const locale = ctx.query?.locale;
       const { slug } = ctx.params;
       const query = {
-        filters: { slug, locale },
+        where: { slug, locale },
         populate: { image: true, blogs: { count: true } },
       };
-      const cate = await strapi.entityService.findMany(
-        "api::category.category",
+      const cate = await strapi.db.query("api::category.category").findMany(
         query
       );
       const sanitizedEntity = await this.sanitizeOutput(cate, ctx);
@@ -40,10 +38,10 @@ module.exports = createCoreController(
       const { limit, start, searchValue, locale } = ctx.query;
       const query = {
         limit: Number(limit) || 10,
-        start: Number(start) || 0,
+        offset: Number(start) || 0,
         populate: { image: true, blogs: { count: true } },
-        sort: { priority: "asc" },
-        filters: {
+        orderBy: { priority: "asc" },
+        where: {
           locale: { $containsi: locale },
           publishedAt: {
             $notNull: true,
@@ -51,16 +49,13 @@ module.exports = createCoreController(
           ...(searchValue && { name: { $containsi: searchValue } }),
         },
       };
-      const cate = await strapi.entityService.findMany(
-        "api::category.category",
-        query
-      );
+      const cate = await strapi.db
+        .query("api::category.category")
+        .findMany(query);
       const sanitizedEntity = await this.sanitizeOutput(cate, ctx);
 
-      const total = await strapi.entityService.findMany(
-        "api::category.category",
-        {
-          filters: {
+      const total = strapi.db.query("api::category.category").findMany({
+          where: {
             locale: locale,
             ...(searchValue && { name: { $containsi: searchValue } }),
           },
@@ -76,11 +71,10 @@ module.exports = createCoreController(
       const locale = ctx.query?.locale;
       const { slug } = ctx.params;
       const query = {
-        filters: { slug, locale },
+        where: { slug, locale },
         populate: ["metaData.metaImage"],
       };
-      const cate = await strapi.entityService.findMany(
-        "api::category.category",
+      const cate = await strapi.db.query("api::category.category").findMany(
         query
       );
       const sanitizedEntity = await this.sanitizeOutput(cate, ctx);

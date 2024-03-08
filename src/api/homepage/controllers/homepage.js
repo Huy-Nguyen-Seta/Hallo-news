@@ -11,8 +11,7 @@ module.exports = createCoreController(
   ({ strapi }) => ({
     async getHomepageData(ctx) {
       const locale = ctx.query?.locale;
-      await this.validateQuery(ctx);
-      const data = await strapi.db.query("api::homepage.homepage").findOne({
+        const data = await strapi.db.query("api::homepage.homepage").findOne({
         populate: [
           "NewPost.categories",
           "PopularPost",
@@ -52,8 +51,7 @@ module.exports = createCoreController(
     },
     async getHomepageSeo(ctx) {
       const locale = ctx.query?.locale;
-      await this.validateQuery(ctx);
-      const data = await strapi.db.query("api::homepage.homepage").findOne({
+        const data = await strapi.db.query("api::homepage.homepage").findOne({
         populate: ["Seo.metaImage"],
         where: { locale: locale },
       });
@@ -61,8 +59,7 @@ module.exports = createCoreController(
     },
     async getHomepagePostByCategory(ctx) {
       const locale = ctx.query?.locale;
-      await this.validateQuery(ctx);
-      const data = await strapi.db.query("api::homepage.homepage").findOne({
+        const data = await strapi.db.query("api::homepage.homepage").findOne({
         populate: [
           "PostByCategory.category.blogs.tags",
           "PostByCategory.category.blogs.thumbnailImage",

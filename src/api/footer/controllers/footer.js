@@ -11,12 +11,10 @@ module.exports = createCoreController("api::footer.footer", ({ strapi }) => ({
     const locale = ctx.query?.locale;
     const query = {
       populate: ["Footer.items", "FooterBottom"],
-      filters: { locale }
+      where: { locale },
     };
-    const footer = await strapi.entityService.findMany(
-      "api::footer.footer",
-      query
-    );
+
+    const footer = await strapi.db.query("api::footer.footer").findMany(query);
     // const sanitizedEntity = await this.sanitizeOutput(footer, ctx);
     return { data: footer };
   },

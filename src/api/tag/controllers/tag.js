@@ -11,7 +11,6 @@ module.exports = createCoreController("api::tag.tag", ({ strapi }) => ({
     const { searchValue } = ctx.query;
 
     const locale = ctx.query?.locale;
-    await this.validateQuery(ctx);
 
     const data = await strapi.db.query("api::tag.tag").findMany({
       where: {
@@ -21,16 +20,16 @@ module.exports = createCoreController("api::tag.tag", ({ strapi }) => ({
       orderBy: { createdAt: "asc" },
       populate: { blogs: { count: true } },
     });
-    return { data : data };
+    return { data: data };
   },
   async findBySlug(ctx) {
     const locale = ctx.query?.locale;
     const { slug } = ctx.params;
     const query = {
-      filters: { slug, locale },
+      where: { slug, locale },
       populate: { blogs: { count: true } },
     };
-    const cate = await strapi.entityService.findMany("api::tag.tag", query);
+    const cate = await strapi.db.query("api::tag.tag").findMany(query);
     const sanitizedEntity = await this.sanitizeOutput(cate, ctx);
     return { data: sanitizedEntity[0] };
   },
@@ -38,10 +37,10 @@ module.exports = createCoreController("api::tag.tag", ({ strapi }) => ({
     const locale = ctx.query?.locale;
     const { slug } = ctx.params;
     const query = {
-      filters: { slug, locale },
+      where: { slug, locale },
       populate: ["metaData.metaImage"],
     };
-    const cate = await strapi.entityService.findMany("api::tag.tag", query);
+    const cate = await strapi.db.query("api::tag.tag").findMany(query);
     const sanitizedEntity = await this.sanitizeOutput(cate, ctx);
     return { data: sanitizedEntity[0] };
   },
