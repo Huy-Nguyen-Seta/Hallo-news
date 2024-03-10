@@ -108,7 +108,7 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
       },
       populate: ["author.image", "tags", "thumbnailImage", "comments"],
       ...(limit && { limit: Number(limit) }),
-      ...(start && { start: Number(start) }),
+      ...(start && { offset: Number(start) }),
       where: {
         publishedAt: {
           $notNull: true,
