@@ -73,7 +73,6 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
           },
         }
       );
-      // console.log("updateViewCount", updateViewCount);
     }
 
     return this.transformResponse(sanitizedEntity[0]);
@@ -125,18 +124,13 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
 
     //count
     const queryCount = {
-      orderBy: {
-        ...(isRecent && { createdAt: "desc" }),
-        ...(isMostLike ? { like: "desc" } : { createdAt: "desc" }),
-      },
-      populate: ["author.image", "tags", "thumbnailImage"],
       where: {
         publishedAt: {
           $notNull: true,
         },
         locale: locale,
         ...(cateSlug && { category: { slug: cateSlug } }),
-        ...(tagSlugs && { tag: { slug: tagSlugs } }),
+        ...(tagSlugs && { tags: { slug: tagSlugs } }),
         ...(authorSlug && { author: { slug: authorSlug } }),
         ...(searchValue && { title: { $containsi: searchValue } }),
       },
@@ -146,7 +140,6 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
       .findMany(queryCount);
     const countSanitizedEntity = await this.sanitizeOutput(postQueryCount, ctx);
     //end count
-
     let data = {
       data: { data: postSanitizedEntity, total: countSanitizedEntity?.length },
     };
