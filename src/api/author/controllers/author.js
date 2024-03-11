@@ -55,7 +55,7 @@ module.exports = createCoreController("api::author.author", ({ strapi }) => ({
       where: { ...(searchValue && { name: { $containsi: searchValue } }) },
     };
 
-    const authorCount = strapi.db.query("api::author.author").findMany(
+    const authorCount = await strapi.db.query("api::author.author").findMany(
       queryCount
     );
     const countEntity = await this.sanitizeOutput(authorCount, ctx);
