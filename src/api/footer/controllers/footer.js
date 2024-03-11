@@ -16,6 +16,6 @@ module.exports = createCoreController("api::footer.footer", ({ strapi }) => ({
 
     const footer = await strapi.db.query("api::footer.footer").findMany(query);
     // const sanitizedEntity = await this.sanitizeOutput(footer, ctx);
-    return { data: footer };
+    return { data: footer?.[0] };
   },
 }));

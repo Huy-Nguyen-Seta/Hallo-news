@@ -54,15 +54,15 @@ module.exports = createCoreController(
         .findMany(query);
       const sanitizedEntity = await this.sanitizeOutput(cate, ctx);
 
-      const total = strapi.db.query("api::category.category").findMany({
+      const total = await strapi.db.query("api::category.category").findMany({
           where: {
             locale: locale,
             ...(searchValue && { name: { $containsi: searchValue } }),
           },
         }
       );
-
       const getTotal = await this.sanitizeOutput(total, ctx);
+
       return {
         data: { results: sanitizedEntity, total: getTotal?.length || 0 },
       };
