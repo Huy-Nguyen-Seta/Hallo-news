@@ -12,7 +12,7 @@ module.exports = createCoreController("api::author.author", ({ strapi }) => ({
     const { slug } = ctx.params;
     const query = {
       where: { slug, locale },
-      populate: { image: true, blogs: { count: true } },
+      populate: { image: true, blogs: { count: true }, localizations: true },
     };
     const author = await strapi.db.query("api::author.author").findMany(
       query

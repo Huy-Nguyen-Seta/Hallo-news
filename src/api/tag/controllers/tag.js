@@ -27,7 +27,7 @@ module.exports = createCoreController("api::tag.tag", ({ strapi }) => ({
     const { slug } = ctx.params;
     const query = {
       where: { slug, locale },
-      populate: { blogs: { count: true } },
+      populate: { blogs: { count: true }, localizations: true },
     };
     const cate = await strapi.db.query("api::tag.tag").findMany(query);
     const sanitizedEntity = await this.sanitizeOutput(cate, ctx);

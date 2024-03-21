@@ -57,12 +57,15 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
         "content.product.image",
         "comments",
         "category",
+        "localizations"
       ],
     };
     const post = await strapi.db.query("api::blog.blog").findMany(query);
     const sanitizedEntity = await this.sanitizeOutput(post, ctx);
-
+    console.log("sanitizedEntity", sanitizedEntity[0].localizations);
     const data = sanitizedEntity[0];
+    console.log('data', data);
+
     if (data.id) {
       const updateViewCount = await strapi.entityService.update(
         "api::blog.blog",
