@@ -21,7 +21,10 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "5.3.4",
+    "sharp": "^0.33.2",
+    "strapi-plugin-local-image-sharp": "^1.7.0",
     "strapi-plugin-oembed": "^1.2.1",
+    "strapi-plugin-slugify": "^2.3.8",
     "styled-components": "5.3.3"
   },
   "author": {

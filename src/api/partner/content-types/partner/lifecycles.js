@@ -1,3 +1,4 @@
+const arabic = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf]/;
 function toLowerCaseNonAccentVietnamese(str) {
   str = str.toLowerCase();
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -15,7 +16,11 @@ function toLowerCaseNonAccentVietnamese(str) {
 const handleTextToUniqueId = (text) => {
   if (text) {
     let newText = toLowerCaseNonAccentVietnamese(text);
-    newText = newText.replace(/[^a-zA-Z0-9 ]/g, "");
+    if (!arabic.test(newText)) {
+      newText = newText.replace(/[^a-zA-Z0-9\s]/g, "");
+    }else {
+      newText = newText.replace(/[^\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf0-9\s]/g, "");
+    }
     newText = newText.replaceAll(" ", "-");
     return newText;
   } else {

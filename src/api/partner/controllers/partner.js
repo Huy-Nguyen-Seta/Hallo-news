@@ -46,7 +46,7 @@ module.exports = createCoreController("api::partner.partner", ({ strapi }) => ({
     const { slug } = ctx.params;
     const query = {
       where: { slug, locale },
-      populate: ["content", "thumbnailImage"],
+      populate: ["content", "thumbnailImage", "localizations"],
     };
     const post = await strapi.db.query("api::partner.partner").findMany(
       query

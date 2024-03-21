@@ -26,7 +26,7 @@ module.exports = createCoreController(
       const { slug } = ctx.params;
       const query = {
         where: { slug, locale },
-        populate: { image: true, blogs: { count: true } },
+        populate: { image: true, blogs: { count: true }, localizations:true },
       };
       const cate = await strapi.db.query("api::category.category").findMany(
         query
