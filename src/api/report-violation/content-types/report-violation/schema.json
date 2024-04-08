@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "report_violations",
+  "info": {
+    "singularName": "report-violation",
+    "pluralName": "report-violations",
+    "displayName": "Report violations",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "userName": {
+      "type": "string"
+    },
+    "ReportType": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text"
+    },
+    "ArticleLink": {
+      "type": "string"
+    }
+  }
+}

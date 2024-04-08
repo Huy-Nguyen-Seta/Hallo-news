@@ -11,7 +11,7 @@ module.exports = createCoreController("api::comment.comment", ({ strapi }) => ({
     const { slug } = ctx.params;
     const { limit, start, locale } = ctx.query;
     const query = {
-      filters: { blog: { slug: slug }, locale },
+      filters: { blog: { slug: slug } },
       populate: ["comments"],
       sort: { createdAt: "desc" },
       ...(limit && { limit: limit }),

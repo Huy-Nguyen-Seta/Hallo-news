@@ -1482,6 +1482,40 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
   };
 }
 
+export interface ApiReportViolationReportViolation
+  extends Schema.CollectionType {
+  collectionName: 'report_violations';
+  info: {
+    singularName: 'report-violation';
+    pluralName: 'report-violations';
+    displayName: 'Report violations';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    userName: Attribute.String;
+    ReportType: Attribute.String;
+    message: Attribute.Text;
+    ArticleLink: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::report-violation.report-violation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::report-violation.report-violation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiStorageStorage extends Schema.CollectionType {
   collectionName: 'storages';
   info: {
@@ -1608,6 +1642,7 @@ declare module '@strapi/types' {
       'api::nav-bar.nav-bar': ApiNavBarNavBar;
       'api::notifications-from-customer.notifications-from-customer': ApiNotificationsFromCustomerNotificationsFromCustomer;
       'api::partner.partner': ApiPartnerPartner;
+      'api::report-violation.report-violation': ApiReportViolationReportViolation;
       'api::storage.storage': ApiStorageStorage;
       'api::tag.tag': ApiTagTag;
     }
