@@ -30,5 +30,10 @@ module.exports = {
       path: "/likedBlog",
       handler: "api::blog.blog.likeBlog",
     },
+    {
+      method: "GET",
+      path: "/updateSchemaBlogs",
+      handler: "api::blog.blog.updateSchemaBlogs",
+    },
   ],
 };

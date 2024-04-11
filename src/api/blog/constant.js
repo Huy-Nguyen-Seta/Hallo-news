@@ -474,7 +474,7 @@ module.exports = {
           url: data?.logoUrl,
         },
       },
-      description: null,
+      description: data?.description,
     };
   },
   getSchemaSite(data) {
