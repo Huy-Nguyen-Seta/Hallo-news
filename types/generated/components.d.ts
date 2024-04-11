@@ -33,8 +33,11 @@ export interface CommonMetaData extends Schema.Component {
     metaTitle: Attribute.String;
     metaDescription: Attribute.Text;
     keyword: Attribute.JSON;
-    schema: Attribute.JSON;
     author: Attribute.JSON;
+    breadcrumbSchema: Attribute.JSON;
+    articleSchema: Attribute.JSON;
+    siteNavigationElementSchema: Attribute.JSON;
+    websiteSchema: Attribute.JSON;
   };
 }
 

@@ -23,10 +23,19 @@
     "keyword": {
       "type": "json"
     },
-    "schema": {
+    "author": {
       "type": "json"
     },
-    "author": {
+    "breadcrumbSchema": {
+      "type": "json"
+    },
+    "articleSchema": {
+      "type": "json"
+    },
+    "siteNavigationElementSchema": {
+      "type": "json"
+    },
+    "websiteSchema": {
       "type": "json"
     }
   }
