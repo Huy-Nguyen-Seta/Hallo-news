@@ -86,6 +86,7 @@ module.exports = {
         {
           slug: data?.slug,
           title: data?.title,
+          description: data?.description,
           authorName: author?.name || "",
           authorUrl: `https://hallo.co/${lang}/news/author/${
             author?.slug || ""
