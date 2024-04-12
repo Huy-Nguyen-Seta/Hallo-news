@@ -187,50 +187,48 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
     (sanitizedEntity || []).forEach(async (element) => {
       // console.log("element", element);
       let schemaData = {};
-      console.log('element?.meta', element?.meta)
-      if (!element?.meta?.siteNavigationElementSchema && !element?.meta?.websiteSchema ) {
-        schemaData.websiteSchema = getSchemaWeb(element?.locale);
+      schemaData.websiteSchema = getSchemaWeb(element?.locale);
 
-        // if (!event?.params?.data?.meta?.siteNavigationElementSchema) {
-        const query = {
-          populate: ["children"],
-          orderBy: { priority: "asc" },
-          where: { locale: element?.locale },
-        };
-        const cate = await strapi.db
-          .query("api::nav-bar.nav-bar")
-          .findMany(query);
-        const listCate = cate?.map((item) => ({
-          name: item?.name,
-          url: `https://hallo.co/${element?.locale}/news/${item?.slug || ""}`,
-        }));
-        schemaData.siteNavigationElementSchema = getSchemaSite(listCate);
+      // if (!event?.params?.data?.meta?.siteNavigationElementSchema) {
+      const query = {
+        populate: ["children"],
+        orderBy: { priority: "asc" },
+        where: { locale: element?.locale },
+      };
+      const cate = await strapi.db
+        .query("api::nav-bar.nav-bar")
+        .findMany(query);
+      const listCate = cate?.map((item) => ({
+        name: item?.name,
+        url: `https://hallo.co/${element?.locale}/news/${item?.href || ""}`,
+      }));
+      schemaData.siteNavigationElementSchema = getSchemaSite(listCate);
 
-        schemaData.breadcrumbSchema = getSchemaBreadcrumb(
-          { slug: element.slug, title: element?.title || "" },
-          element?.locale
-        );
+      schemaData.breadcrumbSchema = getSchemaBreadcrumb(
+        { slug: element.slug, title: element?.title || "" },
+        element?.locale
+      );
 
-        let author = element.author;
+      let author = element.author;
 
-        schemaData.articleSchema = getSchemaArticle(
-          {
-            slug: element?.slug,
-            title: element?.title,
-            description: element?.description,
-            authorName: author?.name || "",
-            authorUrl: `https://hallo.co/${element?.locale}/news/author/${
-              author?.slug || ""
-            }`,
-            logoUrl:
-              "https://hallo.co/_next/image?url=%2Fimage%2Flogo-r.png&w=96&q=75",
-            imageUrl: `https://admin.hallo.co${
-              element?.thumbnailImage?.url || ""
-            }`,
-          },
-          element?.locale
-        );
-      }
+      schemaData.articleSchema = getSchemaArticle(
+        {
+          slug: element?.slug,
+          title: element?.title,
+          description: element?.description,
+          authorName: author?.name || "",
+          authorUrl: `https://hallo.co/${element?.locale}/news/author/${
+            author?.slug || ""
+          }`,
+          logoUrl:
+            "https://hallo.co/_next/image?url=%2Fimage%2Flogo-r.png&w=96&q=75",
+          imageUrl: `https://admin.hallo.co${
+            element?.thumbnailImage?.url || ""
+          }`,
+        },
+        element?.locale
+      );
+
       // console.log("schemaData", schemaData);
       // const metaData = await strapi.db.query("common.meta-data").create({
       //   data: schemaData,
@@ -249,11 +247,15 @@ module.exports = createCoreController("api::blog.blog", ({ strapi }) => ({
       //     },
       //   },
       // });
-     const data = await strapi.entityService.update("api::blog.blog", element?.id, {
-        data: {
-          meta:schemaData
-        },
-      });
+      const data = await strapi.entityService.update(
+        "api::blog.blog",
+        element?.id,
+        {
+          data: {
+            meta: schemaData,
+          },
+        }
+      );
 
       // console.log("-----", data);
       // event.params.data.meta = {
