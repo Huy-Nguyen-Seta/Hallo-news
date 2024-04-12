@@ -11,7 +11,12 @@ module.exports = createCoreController("api::comment.comment", ({ strapi }) => ({
     const { slug } = ctx.params;
     const { limit, start, locale } = ctx.query;
     const query = {
-      filters: { blog: { slug: slug } },
+      filters: {
+        blog: { slug: slug },
+        publishedAt: {
+          $notNull: true,
+        },
+      },
       populate: ["comments"],
       sort: { createdAt: "desc" },
       ...(limit && { limit: limit }),
@@ -21,11 +26,20 @@ module.exports = createCoreController("api::comment.comment", ({ strapi }) => ({
       "api::comment.comment",
       query
     );
-    const sanitizedEntity = await this.sanitizeOutput(cate, ctx);
+    const newCate = cate.map((item) => ({
+      ...item,
+      comments: (item?.comments || []).filter((item) => item?.publishedAt !== null)
+    }));
+    const sanitizedEntity = await this.sanitizeOutput(newCate, ctx);
 
     const queryCount = {
       populate: "*",
-      filters: { blog: { slug: slug } },
+      filters: {
+        blog: { slug: slug },
+        publishedAt: {
+          $notNull: true,
+        },
+      },
     };
     const countEntity = await strapi.entityService.findMany(
       "api::comment.comment",
@@ -50,7 +64,7 @@ module.exports = createCoreController("api::comment.comment", ({ strapi }) => ({
         blog: [blogId],
         name: userName,
         comment: comment,
-        publishedAt: new Date().toISOString(),
+        // publishedAt: new Date().toISOString(),
       },
     });
 
@@ -64,7 +78,7 @@ module.exports = createCoreController("api::comment.comment", ({ strapi }) => ({
         like: 0,
         name: userName,
         comment: comment,
-        publishedAt: new Date().toISOString(),
+        // publishedAt: new Date().toISOString(),
       },
     });
 
