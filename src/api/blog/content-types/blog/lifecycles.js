@@ -119,18 +119,26 @@ module.exports = {
     }
     // console.log("schemaData", schemaData);
     // event.params.data.meta =  schemaData
-    const metaData = await strapi.db.query("common.meta-data").create({
-      data: schemaData,
-    });
-    // console.log("metaData", metaData);
 
-    event.params.data.meta = {
-      id: metaData.id,
-      __pivot: {
-        field: "meta",
-        component_type: "common.meta-data",
-      },
-    };
+    if (data?.meta?.id) {
+      const metaData = await strapi.db.query("common.meta-data").update({
+        where: { id: data?.meta?.id },
+        data: schemaData,
+      });
+    } else {
+      const metaData = await strapi.db.query("common.meta-data").create({
+        data: schemaData,
+      });
+      // console.log("metaData", metaData);
+
+      event.params.data.meta = {
+        id: metaData.id,
+        __pivot: {
+          field: "meta",
+          component_type: "common.meta-data",
+        },
+      };
+    }
   },
   afterCreate(event) {
     const { result, params } = event;
