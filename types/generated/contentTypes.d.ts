@@ -907,6 +907,12 @@ export interface ApiBlogBlog extends Schema.CollectionType {
         };
       }> &
       Attribute.DefaultTo<0>;
+    createdDate: Attribute.Date &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
