@@ -67,6 +67,17 @@
         }
       },
       "component": "common.meta-data"
+    },
+    "Banner": {
+      "displayName": "BannerHomepage",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "layout.banner-homepage"
     }
   }
 }

@@ -189,6 +189,19 @@ export interface LayoutAricles extends Schema.Component {
   };
 }
 
+export interface LayoutBannerHomepage extends Schema.Component {
+  collectionName: 'components_layout_banner_homepages';
+  info: {
+    displayName: 'BannerHomepage';
+    description: '';
+  };
+  attributes: {
+    BannerImage: Attribute.Media;
+    BannerLink: Attribute.String;
+    isNewTab: Attribute.Boolean;
+  };
+}
+
 export interface LayoutBanner extends Schema.Component {
   collectionName: 'components_layout_banners';
   info: {
@@ -332,6 +345,7 @@ declare module '@strapi/types' {
       'content.link': ContentLink;
       'content.single-link': ContentSingleLink;
       'layout.aricles': LayoutAricles;
+      'layout.banner-homepage': LayoutBannerHomepage;
       'layout.banner': LayoutBanner;
       'layout.blogs': LayoutBlogs;
       'layout.category': LayoutCategory;
