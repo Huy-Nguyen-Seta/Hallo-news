@@ -1216,6 +1216,12 @@ export interface ApiHomepageHomepage extends Schema.SingleType {
           localized: true;
         };
       }>;
+    Banner: Attribute.Component<'layout.banner-homepage', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

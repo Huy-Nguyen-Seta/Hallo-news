@@ -20,6 +20,7 @@ module.exports = createCoreController(
           "Section1.category.blogs.author",
           "Section1.category.blogs.comments",
           "Section1.tags",
+          "Banner.BannerImage"
         ],
         where: { locale: locale },
       });
